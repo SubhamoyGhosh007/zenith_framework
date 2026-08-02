@@ -1,0 +1,46 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Package zenith-framework zip
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: latest
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - name: Install + build NUI
+        run: |
+          pnpm -C resources/zenith-nui/web install --frozen-lockfile
+          pnpm -C resources/zenith-nui/web build
+      - name: Package
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          STAGING="zenith-framework-$VERSION"
+          mkdir "$STAGING"
+          rsync -a \
+            --exclude node_modules \
+            --exclude .git \
+            --exclude .github \
+            --exclude .opencode \
+            --exclude .gemini \
+            --exclude '*.log' \
+            ./ "$STAGING/"
+          zip -r "zenith-framework-$VERSION.zip" "$STAGING"
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: zenith-framework-*.zip
+          generate_release_notes: true

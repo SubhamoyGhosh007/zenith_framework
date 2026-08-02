@@ -1,0 +1,5 @@
+packages:
+  - "resources/zenith-nui/web"
+  - "resources/ox_inventory/web"
+allowBuilds:
+  '@parcel/watcher': true

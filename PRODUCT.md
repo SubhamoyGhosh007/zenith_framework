@@ -24,7 +24,7 @@ Full ownership of the core with no opaque upstream to fight (unlike ESX/QBCore d
 
 ## Operating Context
 
-- **Runtime:** FiveM (Lua 5.4 runtime), React 18+Vite+TS+Tailwind NUI in CEF.
+- **Runtime:** FiveM (Lua 5.4 runtime, GTA V Expanded & Enhanced build 3258 enforced), React 18+Vite+TS+Tailwind NUI in CEF.
 - **Backing services:** MySQL 8 / MariaDB 10.5+ via `ox_mysql` (JSON functions required); `ox_lib` for callbacks, context menus, notify, input, zones, profiling.
 - **Topology:** many small self-contained resources under `resources/`, each owning its data and exposing a clean `module:Method` export API plus `zenith:module:action` ox_lib callbacks. Dependency graph: migrations → ox_lib/ox_mysql → zenith-core → zenith-player → (characters, money, jobs, spawn, housing, admin → permissions) → zenith-nui last. (Note: `ox_inventory` is a customized UI fork loaded alongside the framework).
 - **Workflows:** server boots → `zenith-migrations` runs versioned `sql/migrations/*.sql` in order inside transactions → `zenith-permissions` mirrors `user_groups` to ace principals → `zenith-player` resolves identifiers → player joins → `zenith-characters` create/select → `zenith-spawn` spawn selection → live RP with shared NUI overlay (HUD fixed; menus mount/unmount on demand).

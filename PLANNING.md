@@ -26,7 +26,7 @@ A modular FiveM roleplay framework built from scratch, using **ox_mysql** and **
 
 | Layer | Choice | Notes |
 |---|---|---|
-| Game scripting | Lua 5.4 (FiveM runtime) | client/server/shared split per resource |
+| Game scripting | Lua 5.4 (FiveM runtime, build 3258 E&E enforced) | client/server/shared split per resource |
 | DB layer | **ox_mysql** | async/await + prepared statements, exposed as `Zenith.DB` helper in core |
 | Shared lib | **ox_lib** | callbacks, context menus, notify, input dialog, zones, profiling |
 | NUI | React 18 + Vite + TypeScript + Tailwind | one design-system package reused by all NUI |
